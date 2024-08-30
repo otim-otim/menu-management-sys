@@ -4,12 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 
 
-Route::prefix('menus')->name('menus.')->controller(MenuController::class)->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{menu}', 'show')->name('show');
-    Route::get('/{menu}/edit', 'edit')->name('edit');
-    Route::put('/{menu}', 'update')->name('update');
-    Route::delete('/{menu}', 'destroy')->name('destroy');
+Route::prefix('api')->name('menus.')->controller(MenuController::class)->group(function () {
+    Route::get('/menus', 'index')->name('index');
+    Route::post('/menus', 'store')->name('store');
+    Route::get('/menus/{menu}', 'show')->name('show');
+    Route::put('/menus/{menu}', 'update')->name('update');
+    Route::delete('/menus/{menu}', 'destroy')->name('destroy');
 });
