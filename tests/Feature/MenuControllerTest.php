@@ -17,7 +17,7 @@ class MenuControllerTest extends TestCase
         $menus = Menu::factory()->count(3)->create();
 
         // Act
-        $response = $this->getJson(route('menus.index'));
+        $response = $this->getJson('/api/menus');
 
         // Assert
         $response->assertStatus(200);
@@ -38,7 +38,7 @@ class MenuControllerTest extends TestCase
         ];
 
         // Act
-        $response = $this->postJson(route('menus.store'), $data);
+        $response = $this->postJson('/api/menus', $data);
 
         // Assert
         $response->assertStatus(201);
@@ -53,7 +53,7 @@ class MenuControllerTest extends TestCase
         $menu = Menu::factory()->create();
 
         // Act
-        $response = $this->getJson(route('menus.show', $menu->id));
+        $response = $this->getJson("/api/menus/{$menu->id}");
 
         // Assert
         $response->assertStatus(200);
@@ -78,7 +78,7 @@ class MenuControllerTest extends TestCase
         ];
 
         // Act
-        $response = $this->putJson(route('menus.update', $menu->id), $updatedData);
+        $response = $this->putJson("/api/menus/{$menu->id}", $updatedData);
 
         // Assert
         $response->assertStatus(200);
@@ -93,7 +93,7 @@ class MenuControllerTest extends TestCase
         $menu = Menu::factory()->create();
 
         // Act
-        $response = $this->deleteJson(route('menus.destroy', $menu->id));
+        $response = $this->deleteJson("/api/menus/{$menu->id}");
 
         // Assert
         $response->assertStatus(204); // No content
