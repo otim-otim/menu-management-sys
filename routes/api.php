@@ -1,13 +1,17 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
-Route::prefix('api')->name('menus.')->controller(MenuController::class)->group(function () {
-    Route::get('/menus', 'index')->name('index');
-    Route::post('/menus', 'store')->name('store');
-    Route::get('/menus/{menu}', 'show')->name('show');
-    Route::put('/menus/{menu}', 'update')->name('update');
-    Route::delete('/menus/{menu}', 'destroy')->name('destroy');
+Route::prefix('menus')->name('menus.')->controller(MenuController::class)->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{menu}', 'show')->name('show');
+    Route::put('/{menu}', 'update')->name('update');
+    Route::delete('/{menu}', 'destroy')->name('destroy');
 });
