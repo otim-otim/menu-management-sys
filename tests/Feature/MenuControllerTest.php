@@ -103,4 +103,39 @@ class MenuControllerTest extends TestCase
         $response->assertStatus(204); // No content
         $this->assertDatabaseMissing('menus', ['id' => $menu->id]); // Check that the data is removed from the database
     }
+
+    /** @test */
+public function it_can_create_a_menu_and_a_submenu()
+{
+    // Arrange
+    // Create a parent menu item
+    $parentMenu = Menu::factory()->create([
+        'name' => 'Parent Menu',
+        'parent_id' => null, // Top-level menu
+        'depth' => 1,
+    ]);
+
+    // Data for the submenu
+    $submenuData = [
+        'name' => 'Submenu',
+        'parent_id' => $parentMenu->id, // ID of the parent menu
+        'depth' => 2,
+    ];
+
+    // Act
+    // Create the submenu
+    $response = $this->postJson('/api/menus', $submenuData);
+
+    // Assert
+    $response->assertStatus(201);
+    $response->assertJson($submenuData);
+    $this->assertDatabaseHas('menus', $submenuData);
+
+    // Verify the parent menu
+    $this->assertDatabaseHas('menus', [
+        'id' => $parentMenu->id,
+        'name' => 'Parent Menu',
+    ]);
+}
+
 }
