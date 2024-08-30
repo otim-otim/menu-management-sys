@@ -16,8 +16,12 @@ class MenuControllerTest extends TestCase
         // Arrange
         $menus = Menu::factory()->count(3)->create();
 
+        
+
         // Act
         $response = $this->getJson('/api/menus');
+
+        // dd($response);
 
         // Assert
         $response->assertStatus(200);
