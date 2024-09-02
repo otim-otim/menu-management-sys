@@ -63,8 +63,7 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:menus,id',
-            'depth' => 'required|integer|min:1',
+            // 'parentId' => 'nullable|exists:menus,id',
         ]);
 
         $menu->update($request->all());
