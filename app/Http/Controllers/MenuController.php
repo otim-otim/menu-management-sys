@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\MenuCreateDTO;
 use App\Http\Resources\MenuResource;
 use App\Models\Menu;
+use App\Services\MenuService;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
+
+    public function __construct(
+        public MenuService $menuService = new MenuService()
+    ){
+
+    } 
     /**
      * Display a listing of the resource.
      */
@@ -26,13 +34,16 @@ class MenuController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:menus,id',
-            'depth' => 'required|integer|min:1',
+            'parentId' => 'nullable|exists:menus,id',
         ]);
 
-        $menu = Menu::create($request->all());
+        $dto = MenuCreateDTO::fromRequest($request);
 
-        return response()->json(new MenuResource($menu), 201);
+        $menu = $this->menuService->storeMenu($dto);
+
+        // $menu = Menu::create($request->all());
+
+        return response()->json($menu, 201);
     }
 
     /**
