@@ -19,6 +19,7 @@ class MenuResource extends JsonResource
             'name' => $this->name,
             'parent' => $this->parent_id,
             'depth' => $this->depth,
+            'children' => MenuResource::collection($this->children),
         ];
     }
 }
