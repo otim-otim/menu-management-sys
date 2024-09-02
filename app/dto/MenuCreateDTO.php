@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 class MenuCreateDTO
 {
     public string $name;
-    public ?int $parent_id = null;
+    public ?string $parent_id = null;
     
 
-    public function __construct(string $name, ?int $parent_id)
+    public function __construct(string $name, ?string $parent_id)
     {
         $this->name = $name;
         $this->parent_id = $parent_id;
