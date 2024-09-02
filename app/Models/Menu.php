@@ -20,6 +20,17 @@ class Menu extends Model
             }
         });
     }
+
+    // Ensure the id is treated as a string
+    protected $keyType = 'string';
+
+    // Disable auto-incrementing since UUIDs are not integers
+    public $incrementing = false;
+
+    // Add this to make sure the ID is treated as a string
+    protected $casts = [
+        'id' => 'string',
+    ];
     protected $fillable = [
         'name',
         'parent_id',
