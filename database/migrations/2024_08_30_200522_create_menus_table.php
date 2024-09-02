@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name'); // Name of the menu item
             $table->uuid('parent_id')->nullable(); // Self-referencing foreign key
-            $table->integer('depth')->default(1); // Order of the menu item
+            $table->integer('depth')->default(0); // Order of the menu item
             $table->timestamps();
         });
     }
