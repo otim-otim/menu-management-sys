@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name'); // Name of the menu item
-            $table->unsignedBigInteger('parent_id')->nullable(); // Self-referencing foreign key
+            $table->uuid('parent_id')->nullable(); // Self-referencing foreign key
             $table->integer('depth')->default(1); // Order of the menu item
             $table->timestamps();
         });
